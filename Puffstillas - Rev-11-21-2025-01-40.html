@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<!-- saved from url=(0082)file:///C:/Users/acer/Downloads/Puffstillas/PUFFSTILLAS%20(REV-11-21-25).html#home -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Puffstillas - Dessert Time</title>
+<script src="./Puffstillas - Dessert Time_files/saved_resource"></script>
+<style>
+/* Custom styles for background and font */
+body {
+font-family: 'Inter', sans-serif;
+background-color: #F8F8F8; /* Light off-white background */
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+}
+/* Page content toggle - Key to single-page application feel */
+.page-content {
+display: none;
+flex-grow: 1;
+padding-bottom: 5rem; /* Space for fixed footer */
+}
+.active-page {
+display: block;
+}
+/* Active navigation link styling */
+.nav-link.active {
+background-color: #fbcfe8; /* Light pink background */
+color: #be185d; /* Darker pink text */
+font-weight: 700;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+/* Flavor card hover effect */
+.flavor-card {
+transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+.flavor-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+/* Mobile-friendly image styling for team members */
+.member-image {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+</style>
+<script>
+// --- Data Definitions with LOCAL FILE PATHS ---
+
+// IMPORTANT: For these images to work, you must save the image files
+// (jackielyn.jpg, jessica.jpg, etc.) in the SAME FOLDER as puffstillas.html
+
+const memberData = [
+  { name: "Jackielyn B. Pabilane", role: "Manager", imageSrc: "https://i.imgur.com/OMT0eM5.jpeg" },
+  { name: "Jessica Leigh B. Prego", role: "Cashier/Bookkeeper", imageSrc: "https://i.imgur.com/m7S4Dan.jpeg" },
+  { name: "Andrei V. Pantig", role: "Production Staff", imageSrc: "https://i.imgur.com/ByQ3L8o.jpeg" },
+  { name: "AJ D. Prieto", role: "Production Staff", imageSrc: "https://i.imgur.com/9aFXPDH.jpeg" },
+  { name: "Aleck A. Parra", role: "Marketing Staff", imageSrc: "https://i.imgur.com/RfxHlIi.jpeg" },
+  { name: "Jaypee B. Lopez", role: "Marketing Staff", imageSrc: "https://i.imgur.com/SumREOp.jpeg" },
+  { name: "Mark Wilson A. Prestado", role: "Packaging Staff", imageSrc: "https://i.imgur.com/K2amTnD.jpeg" },
+  { name: "Daniella A. Punongbayan", role: "Utility Staff", imageSrc: "https://i.imgur.com/Fz2x4xB.jpeg" }
+];
+
+// --- Core Navigation and Rendering Functions ---
+
+function showPage(pageId) {
+document.querySelectorAll('.page-content').forEach(page => {
+page.classList.remove('active-page');
+});
+const activePage = document.getElementById(pageId);
+if (activePage) {
+activePage.classList.add('active-page');
+}
+document.querySelectorAll('.nav-link').forEach(link => {
+link.classList.remove('active');
+if (link.dataset.page === pageId) {
+link.classList.add('active');
+}
+});
+window.location.hash = pageId;
+window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderTeamMembers() {
+const container = document.getElementById('team-members-grid');
+if (!container) return;
+
+container.innerHTML = memberData.map(member => `
+<div class="bg-white p-4 rounded-xl shadow-lg border border-pink-100 transition duration-300 transform hover:scale-[1.02] text-center">
+<div class="w-24 h-24 sm:w-32 sm:h-32 mx-auto rounded-full overflow-hidden mb-4 border-4 border-pink-300">
+<img src="${member.imageSrc}"
+alt="${member.name} - ${member.role}"
+onerror="this.onerror=null; this.src='https://placehold.co/300x300/ccc/333?text=Team'"
+class="member-image image-loader">
+</div>
+<h3 class="text-lg font-bold text-pink-700 mb-1">${member.name}</h3>
+<p class="text-sm text-gray-500">${member.role}</p>
+</div>
+`).join('');
+}
+
+function renderFlavors() {
+// This function is no longer needed as the flavor cards are hardcoded in the HTML structure.
+}
+
+function loadImages() {
+    // Logo
+    const logo = document.getElementById('header-logo');
+    if (logo) {
+        logo.setAttribute('src', 'https://i.imgur.com/HGtxZAT.jpeg'); 
+    }
+
+    // Banner
+    const banner = document.getElementById('home-banner');
+    if (banner) {
+        banner.setAttribute('src', 'https://i.imgur.com/Xx1pmHk.jpeg');
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+renderTeamMembers();
+renderFlavors();
+loadImages();
+
+const initialPage = window.location.hash ? window.location.hash.substring(1) : 'home';
+const validPages = ['home', 'about', 'team', 'flavors'];
+const pageToShow = validPages.includes(initialPage) ? initialPage : 'home';
+showPage(pageToShow);
+
+document.querySelectorAll('.nav-link').forEach(link => {
+link.addEventListener('click', (e) => {
+e.preventDefault();
+showPage(e.target.dataset.page);
+});
+});
+
+window.addEventListener('hashchange', () => {
+const newHash = window.location.hash ? window.location.hash.substring(1) : 'home';
+if (validPages.includes(newHash)) {
+showPage(newHash);
+} else {
+showPage('home');
+}
+});
+});
+</script>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.sticky{position:sticky}.top-0{top:0px}.z-50{z-index:50}.mx-auto{margin-left:auto;margin-right:auto}.mb-1{margin-bottom:0.25rem}.mb-10{margin-bottom:2.5rem}.mb-2{margin-bottom:0.5rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.ml-2{margin-left:0.5rem}.mt-12{margin-top:3rem}.mt-2{margin-top:0.5rem}.mt-6{margin-top:1.5rem}.mt-8{margin-top:2rem}.mt-auto{margin-top:auto}.inline-block{display:inline-block}.flex{display:flex}.grid{display:grid}.hidden{display:none}.h-10{height:2.5rem}.h-16{height:4rem}.h-48{height:12rem}.h-24{height:6rem}.min-h-screen{min-height:100vh}.w-auto{width:auto}.w-full{width:100%}.w-24{width:6rem}.max-w-2xl{max-width:42rem}.max-w-3xl{max-width:48rem}.max-w-4xl{max-width:56rem}.max-w-7xl{max-width:80rem}.flex-shrink-0{flex-shrink:0}.flex-grow{flex-grow:1}.transform{transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.flex-col{flex-direction:column}.items-center{align-items:center}.justify-between{justify-content:space-between}.gap-6{gap:1.5rem}.gap-8{gap:2rem}.space-x-1 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.25rem * var(--tw-space-x-reverse));margin-left:calc(0.25rem * calc(1 - var(--tw-space-x-reverse)))}.space-y-6 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.5rem * var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.rounded-2xl{border-radius:1rem}.rounded-3xl{border-radius:1.5rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.rounded-xl{border-radius:0.75rem}.border{border-width:1px}.border-4{border-width:4px}.border-b-2{border-bottom-width:2px}.border-l-4{border-left-width:4px}.border-pink-300{--tw-border-opacity:1;border-color:rgb(249 168 212 / var(--tw-border-opacity, 1))}.border-pink-500{--tw-border-opacity:1;border-color:rgb(236 72 153 / var(--tw-border-opacity, 1))}.border-pink-100{--tw-border-opacity:1;border-color:rgb(252 231 243 / var(--tw-border-opacity, 1))}.bg-gray-900{--tw-bg-opacity:1;background-color:rgb(17 24 39 / var(--tw-bg-opacity, 1))}.bg-pink-100{--tw-bg-opacity:1;background-color:rgb(252 231 243 / var(--tw-bg-opacity, 1))}.bg-pink-500{--tw-bg-opacity:1;background-color:rgb(236 72 153 / var(--tw-bg-opacity, 1))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.object-cover{object-fit:cover}.object-center{object-position:center}.p-4{padding:1rem}.p-6{padding:1.5rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-4{padding-left:1rem;padding-right:1rem}.px-8{padding-left:2rem;padding-right:2rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.pb-2{padding-bottom:0.5rem}.text-center{text-align:center}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.font-bold{font-weight:700}.font-extrabold{font-weight:800}.font-medium{font-weight:500}.text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175 / var(--tw-text-opacity, 1))}.text-gray-600{--tw-text-opacity:1;color:rgb(75 85 99 / var(--tw-text-opacity, 1))}.text-gray-700{--tw-text-opacity:1;color:rgb(55 65 81 / var(--tw-text-opacity, 1))}.text-pink-400{--tw-text-opacity:1;color:rgb(244 114 182 / var(--tw-text-opacity, 1))}.text-pink-600{--tw-text-opacity:1;color:rgb(219 39 119 / var(--tw-text-opacity, 1))}.text-pink-700{--tw-text-opacity:1;color:rgb(190 24 93 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.text-gray-500{--tw-text-opacity:1;color:rgb(107 114 128 / var(--tw-text-opacity, 1))}.shadow-2xl{--tw-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-inner{--tw-shadow:inset 0 2px 4px 0 rgb(0 0 0 / 0.05);--tw-shadow-colored:inset 0 2px 4px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-xl{--tw-shadow:0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.transition{transition-property:color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-150{transition-duration:150ms}.duration-300{transition-duration:300ms}.hover\:scale-105:hover{--tw-scale-x:1.05;--tw-scale-y:1.05;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.hover\:scale-\[1\.02\]:hover{--tw-scale-x:1.02;--tw-scale-y:1.02;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.hover\:bg-pink-50:hover{--tw-bg-opacity:1;background-color:rgb(253 242 248 / var(--tw-bg-opacity, 1))}.hover\:bg-pink-600:hover{--tw-bg-opacity:1;background-color:rgb(219 39 119 / var(--tw-bg-opacity, 1))}.hover\:text-pink-300:hover{--tw-text-opacity:1;color:rgb(249 168 212 / var(--tw-text-opacity, 1))}@media (min-width: 640px){.sm\:mt-0{margin-top:0px}.sm\:block{display:block}.sm\:h-72{height:18rem}.sm\:h-32{height:8rem}.sm\:w-32{width:8rem}.sm\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.sm\:flex-row{flex-direction:row}.sm\:space-x-4 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(1rem * var(--tw-space-x-reverse));margin-left:calc(1rem * calc(1 - var(--tw-space-x-reverse)))}.sm\:p-10{padding:2.5rem}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:text-4xl{font-size:2.25rem;line-height:2.5rem}.sm\:text-5xl{font-size:3rem;line-height:1}}@media (min-width: 768px){.md\:grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}}@media (min-width: 1024px){.lg\:grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}.lg\:px-8{padding-left:2rem;padding-right:2rem}}</style></head>
+<body class="flex flex-col min-h-screen">
+
+<header class="sticky top-0 z-50 bg-white shadow-lg">
+<nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-16">
+<div class="flex-shrink-0 flex items-center">
+<img id="header-logo" class="h-10 w-auto rounded-lg" src="./Puffstillas - Dessert Time_files/be185d" alt="Puffstillas Logo" onerror="this.onerror=null; this.src=&#39;https://placehold.co/40x40/fbcfe8/be185d?text=Logo&#39;">
+<span class="ml-2 text-xl font-extrabold text-pink-600 hidden sm:block">Puffstillas</span>
+</div>
+<div class="flex space-x-1 sm:space-x-4">
+<a href="file:///C:/Users/acer/Downloads/Puffstillas/PUFFSTILLAS%20(REV-11-21-25).html#home" data-page="home" class="nav-link text-gray-700 hover:bg-pink-50 px-3 py-2 rounded-lg text-sm font-medium transition duration-150 active">Home</a>
+<a href="file:///C:/Users/acer/Downloads/Puffstillas/PUFFSTILLAS%20(REV-11-21-25).html#about" data-page="about" class="nav-link text-gray-700 hover:bg-pink-50 px-3 py-2 rounded-lg text-sm font-medium transition duration-150">About</a>
+<a href="file:///C:/Users/acer/Downloads/Puffstillas/PUFFSTILLAS%20(REV-11-21-25).html#team" data-page="team" class="nav-link text-gray-700 hover:bg-pink-50 px-3 py-2 rounded-lg text-sm font-medium transition duration-150">Team</a>
+<a href="file:///C:/Users/acer/Downloads/Puffstillas/PUFFSTILLAS%20(REV-11-21-25).html#flavors" data-page="flavors" class="nav-link text-gray-700 hover:bg-pink-50 px-3 py-2 rounded-lg text-sm font-medium transition duration-150">Flavors</a>
+</div>
+</div>
+</nav>
+</header>
+
+<main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 mt-6">
+
+<section id="home" class="page-content active-page">
+<div class="bg-white rounded-3xl shadow-2xl overflow-hidden mb-8">
+<img id="home-banner" class="w-full h-48 sm:h-72 object-cover object-center" src="./Puffstillas - Dessert Time_files/be185d(1)" alt="Dessert Time Banner - Puffstillas" onerror="this.onerror=null; this.src=&#39;https://placehold.co/1200x400/fbcfe8/be185d?text=Welcome+to+Puffstillas&#39;">
+<div class="p-6 sm:p-10 text-center">
+<h1 class="text-4xl sm:text-5xl font-extrabold text-pink-700 mb-4">DESSERT TIME</h1>
+<p class="text-xl text-gray-600 max-w-2xl mx-auto">
+Are you hungry? The best dessert choice for you is here! Indulge in our soft, fluffy, and flavorful Puffstillas today.
+</p>
+<a href="file:///C:/Users/acer/Downloads/Puffstillas/PUFFSTILLAS%20(REV-11-21-25).html#flavors" data-page="flavors" class="nav-link mt-8 inline-block bg-pink-500 text-white text-lg font-bold py-3 px-8 rounded-full shadow-xl hover:bg-pink-600 transition duration-300 transform hover:scale-105">
+Discover Our Flavors
+</a>
+</div>
+</div>
+</section>
+
+<section id="about" class="page-content">
+<div class="bg-white p-6 sm:p-10 rounded-3xl shadow-2xl">
+<h2 class="text-3xl sm:text-4xl font-bold text-pink-700 mb-6 border-b-2 border-pink-300 pb-2 text-center">Our Sweet Story</h2>
+
+<div class="space-y-6 text-gray-700 text-lg max-w-4xl mx-auto">
+<p>
+Puffstillas was born from a simple, sweet dream: to create the <strong>perfect, bite-sized dessert</strong> that brings instant joy. We believe that a moment of dessert should be a moment of pure bliss.
+</p>
+<p>
+Our journey involves months of perfecting a unique recipe for the <strong>softest sponge</strong> and the <strong>creamiest filling</strong>. We are committed to using only the highest quality ingredients, ensuring every treat you bite into is fresh, flavorful, and unforgettable.
+</p>
+<div class="p-4 bg-pink-100 border-l-4 border-pink-500 rounded-lg shadow-inner">
+    <p class="font-bold text-pink-700 mb-1">
+        Location: BRGY. BANAY-BANAY, CABUYAO, LAGUNA
+    </p>
+    <p class="text-pink-600">
+        Hours: 8:00 AM to 5:00 PM | MON - FRI
+    </p>
+</div>
+<p>
+Thank you for considering Puffstillas. We look forward to serving you the best dessert choice!
+</p>
+</div>
+</div>
+</section>
+
+<section id="team" class="page-content">
+<div class="bg-white p-6 sm:p-10 rounded-3xl shadow-2xl">
+<h2 class="text-3xl sm:text-4xl font-bold text-pink-700 mb-8 text-center border-b-2 border-pink-300 pb-2">Meet Our 8 Wonderful Team Members</h2>
+<p class="text-center text-gray-600 mb-10 max-w-3xl mx-auto">
+Meet the dedicated people who work tirelessly to bring you the perfect dessert. Their passion is the secret ingredient in every Puffstillas.
+</p>
+
+<div id="team-members-grid" class="grid grid-cols-2 md:grid-cols-4 gap-6">
+<div class="bg-white p-4 rounded-xl shadow-lg border border-pink-100 transition duration-300 transform hover:scale-[1.02] text-center">
+<div class="w-24 h-24 sm:w-32 sm:h-32 mx-auto rounded-full overflow-hidden mb-4 border-4 border-pink-300">
+<img src="./Puffstillas - Dessert Time_files/333" alt="Jackielyn B. Pabilane - Manager" onerror="this.onerror=null; this.src=&#39;https://placehold.co/300x300/ccc/333?text=Team&#39;" class="member-image image-loader">
+</div>
+<h3 class="text-lg font-bold text-pink-700 mb-1">Jackielyn B. Pabilane</h3>
+<p class="text-sm text-gray-500">Manager</p>
+</div>
+
+<div class="bg-white p-4 rounded-xl shadow-lg border border-pink-100 transition duration-300 transform hover:scale-[1.02] text-center">
+<div class="w-24 h-24 sm:w-32 sm:h-32 mx-auto rounded-full overflow-hidden mb-4 border-4 border-pink-300">
+<img src="./Puffstillas - Dessert Time_files/333" alt="Jessica Leigh B. Prego - Cashier/Bookkeeper" onerror="this.onerror=null; this.src=&#39;https://placehold.co/300x300/ccc/333?text=Team&#39;" class="member-image image-loader">
+</div>
+<h3 class="text-lg font-bold text-pink-700 mb-1">Jessica Leigh B. Prego</h3>
+<p class="text-sm text-gray-500">Cashier/Bookkeeper</p>
+</div>
+
+<div class="bg-white p-4 rounded-xl shadow-lg border border-pink-100 transition duration-300 transform hover:scale-[1.02] text-center">
+<div class="w-24 h-24 sm:w-32 sm:h-32 mx-auto rounded-full overflow-hidden mb-4 border-4 border-pink-300">
+<img src="./Puffstillas - Dessert Time_files/333" alt="Andrei V. Pantig - Production Staff" onerror="this.onerror=null; this.src=&#39;https://placehold.co/300x300/ccc/333?text=Team&#39;" class="member-image image-loader">
+</div>
+<h3 class="text-lg font-bold text-pink-700 mb-1">Andrei V. Pantig</h3>
+<p class="text-sm text-gray-500">Production Staff</p>
+</div>
+
+<div class="bg-white p-4 rounded-xl shadow-lg border border-pink-100 transition duration-300 transform hover:scale-[1.02] text-center">
+<div class="w-24 h-24 sm:w-32 sm:h-32 mx-auto rounded-full overflow-hidden mb-4 border-4 border-pink-300">
+<img src="./Puffstillas - Dessert Time_files/333" alt="AJ D. Prieto - Production Staff" onerror="this.onerror=null; this.src=&#39;https://placehold.co/300x300/ccc/333?text=Team&#39;" class="member-image image-loader">
+</div>
+<h3 class="text-lg font-bold text-pink-700 mb-1">AJ D. Prieto</h3>
+<p class="text-sm text-gray-500">Production Staff</p>
+</div>
+
+<div class="bg-white p-4 rounded-xl shadow-lg border border-pink-100 transition duration-300 transform hover:scale-[1.02] text-center">
+<div class="w-24 h-24 sm:w-32 sm:h-32 mx-auto rounded-full overflow-hidden mb-4 border-4 border-pink-300">
+<img src="./Puffstillas - Dessert Time_files/333" alt="Aleck A. Parra - Marketing Staff" onerror="this.onerror=null; this.src=&#39;https://placehold.co/300x300/ccc/333?text=Team&#39;" class="member-image image-loader">
+</div>
+<h3 class="text-lg font-bold text-pink-700 mb-1">Aleck A. Parra</h3>
+<p class="text-sm text-gray-500">Marketing Staff</p>
+</div>
+
+<div class="bg-white p-4 rounded-xl shadow-lg border border-pink-100 transition duration-300 transform hover:scale-[1.02] text-center">
+<div class="w-24 h-24 sm:w-32 sm:h-32 mx-auto rounded-full overflow-hidden mb-4 border-4 border-pink-300">
+<img src="./Puffstillas - Dessert Time_files/333" alt="Jaypee B. Lopez - Marketing Staff" onerror="this.onerror=null; this.src=&#39;https://placehold.co/300x300/ccc/333?text=Team&#39;" class="member-image image-loader">
+</div>
+<h3 class="text-lg font-bold text-pink-700 mb-1">Jaypee B. Lopez</h3>
+<p class="text-sm text-gray-500">Marketing Staff</p>
+</div>
+
+<div class="bg-white p-4 rounded-xl shadow-lg border border-pink-100 transition duration-300 transform hover:scale-[1.02] text-center">
+<div class="w-24 h-24 sm:w-32 sm:h-32 mx-auto rounded-full overflow-hidden mb-4 border-4 border-pink-300">
+<img src="./Puffstillas - Dessert Time_files/333" alt="Mark Wilson A. Prestado - Packaging Staff" onerror="this.onerror=null; this.src=&#39;https://placehold.co/300x300/ccc/333?text=Team&#39;" class="member-image image-loader">
+</div>
+<h3 class="text-lg font-bold text-pink-700 mb-1">Mark Wilson A. Prestado</h3>
+<p class="text-sm text-gray-500">Packaging Staff</p>
+</div>
+
+<div class="bg-white p-4 rounded-xl shadow-lg border border-pink-100 transition duration-300 transform hover:scale-[1.02] text-center">
+<div class="w-24 h-24 sm:w-32 sm:h-32 mx-auto rounded-full overflow-hidden mb-4 border-4 border-pink-300">
+<img src="./Puffstillas - Dessert Time_files/333" alt="Daniella A. Punongbayan - Utility Staff" onerror="this.onerror=null; this.src=&#39;https://placehold.co/300x300/ccc/333?text=Team&#39;" class="member-image image-loader">
+</div>
+<h3 class="text-lg font-bold text-pink-700 mb-1">Daniella A. Punongbayan</h3>
+<p class="text-sm text-gray-500">Utility Staff</p>
+</div>
+</div>
+</div>
+</section>
+
+<section id="flavors" class="page-content">
+<div class="bg-white p-6 sm:p-10 rounded-3xl shadow-2xl">
+<h2 class="text-3xl sm:text-4xl font-bold text-pink-700 mb-8 text-center border-b-2 border-pink-300 pb-2">Our Irresistible Flavor Collection</h2>
+
+<div id="flavors-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+    
+    <div class="flavor-card bg-white rounded-2xl shadow-xl overflow-hidden">
+        <img src="https://i.imgur.com/yDhJxOW.jpeg" alt="Chocolate Cream Puffstillas" class="w-full h-48 object-cover object-center">
+	<div class="p-4 text-center">
+            <h3 class="text-xl font-extrabold text-pink-700 mb-2">Chocolate Cream</h3>
+            <p class="text-gray-600 text-sm mb-4">Rich, creamy chocolate filling nestled in a soft white roll.</p>
+            <button class="w-full bg-pink-500 text-white font-medium py-2 px-4 rounded-full hover:bg-pink-600 transition duration-300 text-sm">
+                Order This Flavor
+            </button>
+        </div>
+    </div>
+    
+    <div class="flavor-card bg-white rounded-2xl shadow-xl overflow-hidden">
+        <img src="https://i.imgur.com/Xww7FD4.jpeg" alt="Ube Delight Puffstillas" class="w-full h-48 object-cover object-center">
+	<div class="p-4 text-center">
+            <h3 class="text-xl font-extrabold text-pink-700 mb-2">Ube Delight</h3>
+            <p class="text-gray-600 text-sm mb-4">Sweet and vibrant purple yam (Ube) cream with a rich center. A local favorite.</p>
+            <button class="w-full bg-pink-500 text-white font-medium py-2 px-4 rounded-full hover:bg-pink-600 transition duration-300 text-sm">
+                Order This Flavor
+            </button>
+        </div>
+    </div>
+
+    <div class="flavor-card bg-white rounded-2xl shadow-xl overflow-hidden">
+        <img src="https://i.imgur.com/sgdfaGY.jpeg" alt="Mango Burst Puffstillas" class="w-full h-48 object-cover object-center">
+        <div class="p-4 text-center">
+            <h3 class="text-xl font-extrabold text-pink-700 mb-2">Mango Burst</h3>
+            <p class="text-gray-600 text-sm mb-4">Tropical mango jam filling for a bright and tangy experience. Perfect for summer.</p>
+            <button class="w-full bg-pink-500 text-white font-medium py-2 px-4 rounded-full hover:bg-pink-600 transition duration-300 text-sm">
+                Order This Flavor
+            </button>
+        </div>
+    </div>
+
+    <div class="flavor-card bg-white rounded-2xl shadow-xl overflow-hidden">
+        <img src="https://i.imgur.com/jBhXC9P.jpeg" alt="Matcha Dream Puffstillas" class="w-full h-48 object-cover object-center">
+        <div class="p-4 text-center">
+            <h3 class="text-xl font-extrabold text-pink-700 mb-2">Matcha Dream</h3>
+            <p class="text-gray-600 text-sm mb-4">Earthy matcha sponge and cream with a delicate green tea filling. Subtle and sophisticated.</p>
+            <button class="w-full bg-pink-500 text-white font-medium py-2 px-4 rounded-full hover:bg-pink-600 transition duration-300 text-sm">
+                Order This Flavor
+            </button>
+        </div>
+    </div>
+
+</div>
+
+<div class="mt-12 text-center p-6 bg-pink-100 rounded-xl border border-pink-300">
+<p class="text-xl font-extrabold text-pink-700">Can't choose? Try one of each! It's always DESSERT TIME.</p>
+</div>
+</div>
+</section>
+
+</main>
+
+<footer class="bg-gray-900 text-white p-4 mt-auto w-full">
+<div class="max-w-7xl mx-auto text-center text-sm flex flex-col sm:flex-row justify-between items-center">
+<p class="text-gray-400">© 2025 Puffstillas. All rights reserved.</p>
+<p class="mt-2 sm:mt-0">
+Email: <a href="mailto:puffstillas.sweets@gmail.com" class="text-pink-400 hover:text-pink-300 transition duration-150 font-medium">puffstillas.sweets@gmail.com</a>
+</p>
+</div>
+</footer>
+
+
+
+</body></html>
